@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    box-sizing: border-box ;
+}
+body{
+    background-color: #E6E6E6;
+}
+.rectangular-box{
+    max-width: 349px;
+    background-color: white;
+    margin: 80px auto;
+    padding:10px;
+    box-shadow: 4px 4px 15px 4px rgba(0, 0, 0, 0.15), -4px -4px 20px 4px rgba(255, 255, 255, 0.2);
+
+}
+.display-box{
+    
+    height: 94px; 
+    background-color: bisque;
+    margin: 20px auto;
+    text-align: right;
+}
+.square-box{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    }
+    button{
+        border: none;
+        height: 75px;
+        font-size: 50px;
+    }
+    .output-box{
+        font-size: 40px;
+    }
+    .chuvapp{
+        color: red;
+    }
+    .pacha{
+        color: green;
+    }
+    .pacha,.chuvapp{
+        background-color: #C5C5C5;
+    }
