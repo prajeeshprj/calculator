@@ -1,8 +1,9 @@
 var buttons = document.getElementsByTagName("button");
 var inputString = "";
 var outputString ="";
-var operantsarray ="";
-var operatorsarray="";
+var operantsArray =[];
+var operatorsArray=[];
+var isLastOperator = true;
 
 for (var i=0;i<buttons.length;i++){
     buttons[i].addEventListener("click",callAction);
@@ -11,15 +12,14 @@ function callAction(event){
     var button =event.target;
     var value = button.innerHTML;
     var actionType = button
-    .classList[0] === "red-text"? "operator" : "operant";
+    .classList[0] === "red-text"?"operator":"operant";
     if(value ==="="){
         calculatorAnswer()
     }
     else{
-        addInput(actionType,value)
-        inputString  += value; 
+        if(addInput(actionType,value)) inputString += value;
     }
-    console.log(operantsarray,operatorsarray);
+    console.log(operatorsArray,operantsArray)
     printInput();
     printOutput();
      
@@ -40,8 +40,21 @@ function printOutput(){
     document.getElementsByClassName("output-box")[0]
     .innerHTML = outputString || 0;
 }
-function addInput(actionType,value){
 
+function addInput(actionType,value){
+     if(actionType === "operator"){
+         if(isLastOperator)return false;
+         operatorsArray.push(value)
+         isLastOperator = true;
+         return true
+     }
+     if(isLastOperator){
+         operantsArray.push(value)
+         isLastOperator= false;
+         return true
+     }
+     operantsArray[operantsArray.length - 1]+=value;
+    
 }
 function calculatorAnswer(){
 
