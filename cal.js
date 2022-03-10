@@ -11,20 +11,20 @@ function callAction(event){
     var button =event.target;
     var value = button.innerHTML;
     var actionType = button
-    .classlist[0] === "red-text"? "operator" : "operant";
+    .classList[0] === "red-text"? "operator" : "operant";
     if(value ==="="){
         calculatorAnswer()
     }
     else{
         addInput(actionType,value)
-        inputString  += value; :
+        inputString  += value; 
     }
     console.log(operantsarray,operatorsarray);
     printInput();
     printOutput();
      
 }
-function printAction(){
+function printInput(){
     document.getElementsByClassName("input-box")[0]
     .innerHTML = inputString || 0;
     // if(inputString === ""){
@@ -44,5 +44,5 @@ function addInput(actionType,value){
 
 }
 function calculatorAnswer(){
-    
+
 }
