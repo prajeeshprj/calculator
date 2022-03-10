@@ -9,17 +9,17 @@ for (var i=0;i<buttons.length;i++){
     buttons[i].addEventListener("click",callAction);
 }
 function callAction(event){
-    var button =event.target;
+    var button = event.target;
     var value = button.innerHTML;
     var actionType = button
-    .classList[0] === "red-text"?"operator":"operant";
+    .classList[0] === "chuvapp"?"operator":"operant";
     if(value ==="="){
         calculatorAnswer()
     }
     else{
         if(addInput(actionType,value)) inputString += value;
     }
-    console.log(operatorsArray,operantsArray)
+    console.log(operantsArray,operatorsArray)
     printInput();
     printOutput();
      
@@ -37,8 +37,7 @@ function printInput(){
     // }
 }
 function printOutput(){
-    document.getElementsByClassName("output-box")[0]
-    .innerHTML = outputString || 0;
+    document.getElementsByClassName("output-box")[0].innerHTML = outputString || 0;
 }
 
 function addInput(actionType,value){
@@ -50,12 +49,45 @@ function addInput(actionType,value){
      }
      if(isLastOperator){
          operantsArray.push(value)
-         isLastOperator= false;
+         isLastOperator = false;
          return true
      }
      operantsArray[operantsArray.length - 1]+=value;
-    
+    return true
 }
 function calculatorAnswer(){
+    for(var j = 0; j < 2; j++){
+        for(var i = 0;i < operatorsArray.length;i++){
+            if(j===0 && (operatorsArray[i] === "*"||
+            operatorsArray[i] ==="/")){
+            performAction(i);
+           }
+           if(j !==0){
+               performAction(i)
+           }
+        }
+        
+    }
+    outputString = operantsArray[0];
+}    
 
+function performAction(index){
+    var result = 0;
+    switch(operatorsArray[index]){
+        case "+":
+            result = Number(operantsArray[index]) + Number(operantsArray[index+1])
+        break;
+        case "-":
+            result = operantsArray[index] - operantsArray[index+1]
+        break;
+        case "/":
+            result = operantsArray[index] / operantsArray[index+1]
+        break;
+        case "*":
+            result = operantsArray[index] * operantsArray[index+1]
+        break;
+    }
+    operantsArray[index]=result;
+    operantsArray.splice(index+1,1)
+    operatorsArray.splice(index,1)
 }
