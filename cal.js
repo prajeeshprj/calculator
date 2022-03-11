@@ -24,6 +24,12 @@ function restAll(){
 }
 function callAction(event){
     var button = event.target;
+    button.style.backgroundColor = "black";
+    button.style.color = "white";
+    setTimeout(function(){
+        button.style.backgroundColor = null;
+        button.style.color = null;
+    },300)
     var value = button.innerHTML;
     var actionType = button
     .classList[0] === "chuvapp"?"operator":"operant";
