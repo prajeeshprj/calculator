@@ -4,9 +4,23 @@ var outputString ="";
 var operantsArray =[];
 var operatorsArray=[];
 var isLastOperator = true;
+var isLastAnswer = false;
 
 for (var i=0;i<buttons.length;i++){
     buttons[i].addEventListener("click",callAction);
+}
+document.getElementsByClassName("reset-button")[0]
+.addEventListener("click",restAll);
+ 
+function restAll(){
+     inputString = "";
+     outputString ="";
+     operantsArray =[];
+     operatorsArray=[];
+     isLastOperator = true;
+     isLastAnswer = false
+     printInput();
+     printOutput();
 }
 function callAction(event){
     var button = event.target;
@@ -15,16 +29,17 @@ function callAction(event){
     .classList[0] === "chuvapp"?"operator":"operant";
     if(value ==="="){
         calculatorAnswer()
+        printOutput();
     }
     else{
         if(addInput(actionType,value)) inputString += value;
+        printInput();
     }
     console.log(operantsArray,operatorsArray)
-    printInput();
-    printOutput();
      
 }
 function printInput(){
+
     document.getElementsByClassName("input-box")[0]
     .innerHTML = inputString || 0;
     // if(inputString === ""){
@@ -41,17 +56,21 @@ function printOutput(){
 }
 
 function addInput(actionType,value){
+   
      if(actionType === "operator"){
          if(isLastOperator)return false;
          operatorsArray.push(value)
          isLastOperator = true;
          return true
-     }
+        
+     } 
+     if (isLastAnswer) restAll()
      if(isLastOperator){
          operantsArray.push(value)
          isLastOperator = false;
          return true
-     }
+         
+    }
      operantsArray[operantsArray.length - 1]+=value;
     return true
 }
@@ -67,8 +86,11 @@ function calculatorAnswer(){
            }
         }
         
-    }
+    } isLastAnswer = true
     outputString = operantsArray[0];
+    inputString = operantsArray[0];
+  
+
 }    
 
 function performAction(index){
